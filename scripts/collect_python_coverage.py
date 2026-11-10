@@ -9,7 +9,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TESTS = ("tests/python/operators", "tests/python/framework")
-SOURCES = "sgl_kernel_npu.implementation,sgl_kernel_npu.operators"
+SOURCE_PATTERNS = "*/sgl_kernel_npu/implementation/*,*/sgl_kernel_npu/operators/*"
 
 
 def main():
@@ -51,8 +51,8 @@ def main():
         print(f"Collecting coverage for {relative_path}", flush=True)
         test_env = {**env, "COVERAGE_FILE": str(data_file)}
         result = subprocess.run(
-            [*coverage, "run", f"--source={SOURCES}", "-m", "pytest",
-             "-q", str(relative_path)],
+            [*coverage, "run", "--branch", f"--include={SOURCE_PATTERNS}", "-m", "pytest",
+             "-q", "--tb=short", str(relative_path)],
             cwd=ROOT,
             env=test_env,
         )
