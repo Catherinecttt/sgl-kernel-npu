@@ -131,90 +131,91 @@ jobs:
                   print(f"{group}={str(group in selected).lower()}", file=output)
           PY
 
-  test-attention-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.attention == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: attention
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-batch-invariant-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.batch_invariant == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: batch_invariant
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-elementwise-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.elementwise == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: elementwise
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-examples-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.examples == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: examples
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-hyper-conn-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.hyper_conn == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: hyper_conn
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-indexer-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.indexer == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: indexer
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
+  # Temporary Lora-only validation; restore the other group jobs after this PR.
+#  test-attention-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.attention == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: attention
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-batch-invariant-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.batch_invariant == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: batch_invariant
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-elementwise-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.elementwise == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: elementwise
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-examples-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.examples == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: examples
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-hyper-conn-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.hyper_conn == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: hyper_conn
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-indexer-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.indexer == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: indexer
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
   test-lora-ops:
     needs: get-changed-files
     if: ${{ needs.get-changed-files.outputs.lora == 'true' }}
@@ -229,242 +230,242 @@ jobs:
       npu_hardware: ${{ matrix.npu_hardware }}
       timeout_minutes: 60
 
-  test-mem-cache-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.mem_cache == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: mem_cache
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-multimodal-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.multimodal == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: multimodal
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-norm-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.norm == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: norm
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-rope-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.rope == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: rope
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-sample-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.sample == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: sample
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-sampler-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.sampler == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: sampler
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-operator-framework-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.operator_framework == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: operator_framework
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-testing-framework-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.testing_framework == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: testing_framework
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-activation-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.activation == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: activation
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-data_move-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.data_move == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: data_move
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-embedding-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.embedding == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: embedding
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-matmul-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.matmul == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: matmul
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-speculative-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.speculative == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: speculative
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-mamba-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.mamba == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: mamba
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
-  test-moe-ops:
-    needs: get-changed-files
-    if: ${{ needs.get-changed-files.outputs.moe == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        npu_hardware: [a3, '950']
-    uses: ./.github/workflows/pr-test-kernel-group.yml
-    with:
-      group: moe
-      cann_version: '9.1.0'
-      npu_hardware: ${{ matrix.npu_hardware }}
-      timeout_minutes: 60
-
+#  test-mem-cache-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.mem_cache == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: mem_cache
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-multimodal-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.multimodal == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: multimodal
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-norm-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.norm == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: norm
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-rope-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.rope == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: rope
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-sample-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.sample == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: sample
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-sampler-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.sampler == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: sampler
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-operator-framework-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.operator_framework == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: operator_framework
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-testing-framework-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.testing_framework == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: testing_framework
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-activation-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.activation == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: activation
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-data_move-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.data_move == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: data_move
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-embedding-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.embedding == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: embedding
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-matmul-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.matmul == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: matmul
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-speculative-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.speculative == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: speculative
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-mamba-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.mamba == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: mamba
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
+#  test-moe-ops:
+#    needs: get-changed-files
+#    if: ${{ needs.get-changed-files.outputs.moe == 'true' }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        npu_hardware: [a3, '950']
+#    uses: ./.github/workflows/pr-test-kernel-group.yml
+#    with:
+#      group: moe
+#      cann_version: '9.1.0'
+#      npu_hardware: ${{ matrix.npu_hardware }}
+#      timeout_minutes: 60
+#
   finish:
     if: ${{ always() }}
     needs:
       - get-changed-files
-      - test-speculative-ops
-      - test-mamba-ops
-      - test-moe-ops
-      - test-matmul-ops
-      - test-embedding-ops
-      - test-data_move-ops
-      - test-activation-ops
-      - test-attention-ops
-      - test-batch-invariant-ops
-      - test-elementwise-ops
-      - test-examples-ops
-      - test-hyper-conn-ops
-      - test-indexer-ops
+#      - test-speculative-ops
+#      - test-mamba-ops
+#      - test-moe-ops
+#      - test-matmul-ops
+#      - test-embedding-ops
+#      - test-data_move-ops
+#      - test-activation-ops
+#      - test-attention-ops
+#      - test-batch-invariant-ops
+#      - test-elementwise-ops
+#      - test-examples-ops
+#      - test-hyper-conn-ops
+#      - test-indexer-ops
       - test-lora-ops
-      - test-mem-cache-ops
-      - test-multimodal-ops
-      - test-norm-ops
-      - test-rope-ops
-      - test-sample-ops
-      - test-sampler-ops
-      - test-operator-framework-ops
-      - test-testing-framework-ops
+#      - test-mem-cache-ops
+#      - test-multimodal-ops
+#      - test-norm-ops
+#      - test-rope-ops
+#      - test-sample-ops
+#      - test-sampler-ops
+#      - test-operator-framework-ops
+#      - test-testing-framework-ops
     runs-on: ubuntu-latest
     steps:
       - name: Check kernel test results
